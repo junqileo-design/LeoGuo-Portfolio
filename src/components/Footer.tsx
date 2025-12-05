@@ -21,7 +21,7 @@ export function Footer() {
             </p>
             
             <motion.a
-              href="mailto:hello@leoguo.design"
+              href="mailto:junqileo@gmail.com"
               className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black hover:bg-white/90 transition-all duration-300 rounded-full"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -43,8 +43,8 @@ export function Footer() {
             </h3>
             <div className="space-y-4 text-white/60">
               <p>
-                <a href="mailto:hello@leoguo.design" className="hover:text-white transition-colors">
-                  hello@leoguo.design
+                <a href="mailto:junqileo@gmail.com" className="hover:text-white transition-colors">
+                  junqileo@gmail.com
                 </a>
               </p>
               <p>
