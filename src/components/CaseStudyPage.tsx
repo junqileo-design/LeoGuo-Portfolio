@@ -9,23 +9,6 @@ interface CaseStudyPageProps {
 }
 
 export function CaseStudyPage({ onNavigate, caseStudyData }: CaseStudyPageProps) {
-  const slices = [
-    {
-      title: 'Context',
-      paragraphs: caseStudyData.context || [],
-      image: caseStudyData.galleryImages?.[0]
-    },
-    {
-      title: 'Concept',
-      paragraphs: caseStudyData.concept || [],
-      image: caseStudyData.galleryImages?.[1]
-    },
-    {
-      title: 'Solution',
-      paragraphs: caseStudyData.solution || [],
-      image: caseStudyData.galleryImages?.[2]
-    }
-  ];
   const isYouTube = (url: string | undefined) =>
     !!url && /(youtube\.com|youtu\.be)/i.test(url);
   const toYouTubeEmbed = (url: string) => {
@@ -140,7 +123,7 @@ export function CaseStudyPage({ onNavigate, caseStudyData }: CaseStudyPageProps)
             </div>
           </div>
         </div>
-  </div>
+      </div>
 
       {caseStudyData.videoUrl && (
         <section className="py-16 px-6 lg:px-12 bg-white">
@@ -173,64 +156,161 @@ export function CaseStudyPage({ onNavigate, caseStudyData }: CaseStudyPageProps)
         </section>
       )}
 
-      {/* Editorial Layout: blended text and supporting images */}
-      <section className="py-20 px-6 lg:px-12 bg-white">
-        <div className="max-w-[1200px] mx-auto space-y-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            <div className="lg:col-span-7 space-y-6 lg:pr-8">
-              <h2 className="text-black text-3xl lg:text-4xl">{caseStudyData.title}</h2>
-              <p className="text-black/70 text-lg leading-relaxed">{caseStudyData.hookQuestion}</p>
-              {caseStudyData.context?.[0] && (
-                <p className="text-black/70 leading-relaxed">{caseStudyData.context[0]}</p>
-              )}
-            </div>
-            {slices[0].image && (
-              <div className="lg:col-span-5 lg:pl-8">
-                <div className="rounded-lg overflow-hidden bg-black/5">
-                  <div className="aspect-[4/3]">
-                    <ImageWithFallback
-                      src={slices[0].image!}
-                      alt={`${caseStudyData.title} overview image`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
+      {/* Process Section - 3 Cards Layout */}
+      <section className="py-24 px-6 lg:px-12 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-black text-3xl lg:text-4xl mb-12 tracking-tight">Process Overview</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Problem Card */}
+            <div className="group flex flex-col gap-6">
+              <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100">
+                {caseStudyData.galleryImages?.[0] && (
+                  <ImageWithFallback
+                    src={caseStudyData.galleryImages[0]}
+                    alt="Problem Statement"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                )}
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-2xl font-medium text-black">The Problem</h3>
+                  <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-[-45deg]">
+                      <path d="M1 6H11M11 6L6 1M11 6L6 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-
-          {slices.map((slice, idx) => (
-            <div key={`slice-${idx}`} className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-              <div className={`${idx % 2 === 0 ? 'lg:col-span-7 order-1 lg:pr-8' : 'lg:col-span-7 lg:order-2 lg:pl-8'} space-y-4`}>
-                <h3 className="text-black text-2xl lg:text-3xl">{slice.title}</h3>
-                <div className="w-20 h-1 bg-black/15"></div>
-                <div className="text-black/70 leading-relaxed space-y-5">
-                  {slice.paragraphs.slice(0, 3).map((p, i) => (
-                    <p key={`slice-${idx}-p-${i}`}>{p}</p>
+                <div className="text-black/60 leading-relaxed">
+                  {caseStudyData.problem?.map((p, i) => (
+                    <p key={i} className="mb-2">{p}</p>
                   ))}
                 </div>
               </div>
-              {slice.image && (
-                <div className={`${idx % 2 === 0 ? 'lg:col-span-5 order-2 lg:pl-8' : 'lg:col-span-5 lg:order-1 lg:pr-8'}`}>
-                  <div className="rounded-lg overflow-hidden bg-black/5">
-                    <div className="aspect-[4/3]">
-                      <ImageWithFallback
-                        src={slice.image}
-                        alt={`${caseStudyData.title} ${slice.title.toLowerCase()} image`}
-                        className="w-full h-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
+            </div>
+
+            {/* Concept Card */}
+            <div className="group flex flex-col gap-6">
+              <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100">
+                {caseStudyData.galleryImages?.[1] && (
+                  <ImageWithFallback
+                    src={caseStudyData.galleryImages[1]}
+                    alt="Design Concept"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                )}
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-2xl font-medium text-black">The Concept</h3>
+                  <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-[-45deg]">
+                      <path d="M1 6H11M11 6L6 1M11 6L6 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </div>
                 </div>
-              )}
+                <div className="text-black/60 leading-relaxed">
+                  {caseStudyData.concept?.map((p, i) => (
+                    <p key={i} className="mb-2">{p}</p>
+                  ))}
+                </div>
+              </div>
             </div>
-          ))}
+
+            {/* Solution Card */}
+            <div className="group flex flex-col gap-6">
+              <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-gray-100">
+                {caseStudyData.galleryImages?.[2] && (
+                  <ImageWithFallback
+                    src={caseStudyData.galleryImages[2]}
+                    alt="Final Solution"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                )}
+              </div>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-2xl font-medium text-black">The Solution</h3>
+                  <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-black group-hover:text-white transition-colors">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="rotate-[-45deg]">
+                      <path d="M1 6H11M11 6L6 1M11 6L6 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="text-black/60 leading-relaxed">
+                  {caseStudyData.solution?.map((p, i) => (
+                    <p key={i} className="mb-2">{p}</p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* Feature Section (Dark) - Context & Impact */}
+      <section className="py-24 px-6 lg:px-12 bg-black text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div className="space-y-8">
+              <h2 className="text-4xl lg:text-5xl tracking-tight">Context & Impact</h2>
+              <div className="space-y-6 text-white/70 text-lg leading-relaxed">
+                <p className="text-xl text-white font-medium">{caseStudyData.hookQuestion}</p>
+                {caseStudyData.context?.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+              
+              {/* Stats or Key Points if available */}
+              <div className="pt-8 border-t border-white/20">
+                <div className="flex flex-col gap-2">
+                  <span className="text-sm text-white/50 uppercase tracking-wider">Deliverables</span>
+                  <span className="text-xl">{caseStudyData.deliverables.join(", ")}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-white/10 border border-white/20">
+                {caseStudyData.galleryImages?.[3] && (
+                  <ImageWithFallback
+                    src={caseStudyData.galleryImages[3]}
+                    alt="Context Visual"
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
+              {/* Decorative element */}
+              <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-white/10 backdrop-blur-md rounded-full z-10"></div>
+              <div className="absolute -top-6 -right-6 w-32 h-32 border border-white/20 rounded-full z-0"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section - Remaining Images */}
+      {caseStudyData.galleryImages && caseStudyData.galleryImages.length > 4 && (
+        <section className="py-24 px-6 lg:px-12 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-end justify-between mb-12">
+              <h2 className="text-black text-3xl lg:text-4xl tracking-tight">Project Gallery</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {caseStudyData.galleryImages.slice(4).map((img, idx) => (
+                <div key={idx} className={`rounded-2xl overflow-hidden bg-gray-100 ${idx % 3 === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-[4/3]'}`}>
+                  <ImageWithFallback
+                    src={img}
+                    alt={`Gallery image ${idx + 1}`}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       
       {/* Footer Section */}
       <Footer />
