@@ -1,5 +1,5 @@
 
-  # Personal Website Background Update
+  # Leo Guo Portfolio Website
 
   This is a code bundle for Personal Website Background Update. The original project is available at https://www.figma.com/design/Z2DrmpkfvcC4Ok0Y0UmOK8/Personal-Website-Background-Update.
 
